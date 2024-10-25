@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Heart with Hover Image and Text</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .heart-container {
+            position: relative;
+        }
+
+        .heart {
+            --c: red; /* 自定义颜色 */
+            width: 500px; /* 增大心形的宽度 */
+            aspect-ratio: 1; /* 保持比例 */
+            background:
+                radial-gradient(at 70% 31%, var(--c) 29%, transparent 30%),
+                radial-gradient(at 30% 31%, var(--c) 29%, transparent 30%),
+                conic-gradient(from -45deg at 50% 84%, var(--c) 90deg, transparent 0)
+                bottom/100% 50% no-repeat;
+            clip-path: polygon(-42% 0, 50% 91%, 142% 0); /* 裁剪为心形 */
+            animation: pulse 2s infinite alternate; /* 心跳动画 */
+            position: relative;
+            cursor: pointer; /* 鼠标指针变为手型 */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05); /* 调整脉动幅度 */
+            }
+        }
+
+        /* 默认隐藏图片和文字 */
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 50%; /* 确保图片在心形的中心位置 */
+            left: 50%;
+            transform: translate(-50%, -60%);
+            width: 200px;
+            height: 200px;
+            background-image: url('psc.png'); /* 替换为你自己的图片路径 */
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none; /* 禁止图片阻挡鼠标事件 */
+        }
+
+        .heart::before {
+            content: 'Love You'; /* 文字内容 */
+            position: absolute;
+            top: 15%; /* 调整文字的位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        /* 鼠标悬停时显示图片和文字 */
+        .heart:hover::after,
+        .heart:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heart-container">
+        <div class="heart"></div>
+    </div>
+</body>
+
+</html>
